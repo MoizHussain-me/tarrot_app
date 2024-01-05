@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "442202038914",
+    "project_id": "tarrotapp-8c5ab",
+    "storage_bucket": "tarrotapp-8c5ab.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:442202038914:android:ae196b54d9c5e921584a9b",
+        "android_client_info": {
+          "package_name": "com.example.tarrot_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBqqckjXABCGm0SohO21dvpj1PVBxlU-qA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
