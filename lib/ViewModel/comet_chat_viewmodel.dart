@@ -1,7 +1,9 @@
-
+import 'package:cometchat_calls_uikit/cometchat_calls_uikit.dart';
+import 'package:cometchat_chat_uikit/cometchat_chat_uikit.dart';
 import 'package:flutter/material.dart';
+import '../utils/app_strings.dart';
 
-class CometChat with ChangeNotifier {
+class CometChatViewModel with ChangeNotifier {
 void initializeCometChat() {
   String region = AppStrings.region;
   String appId = AppStrings.appId;
@@ -130,28 +132,6 @@ Future<void> ImageMessageCometChat(String imgPath, String receiverId) async {
   });
 }
 
-// void receiveMessageCometChat(String id) {
-//   int limit = 30;
-//   int lastMessageId = 1;
-//   String UID = id;
-//   MessagesRequest messageRequest = (MessagesRequestBuilder()
-//         ..uid = UID
-//         ..limit = limit
-//         ..messageId = lastMessageId)
-//       .build();
-
-//   messageRequest.fetchNext(onSuccess: (List<BaseMessage> list) {
-//     for (BaseMessage message in list) {
-//       if (message is TextMessage) {
-//         debugPrint("Text message received successfully: $message");
-//       } else if (message is MediaMessage) {
-//         debugPrint("Media message received successfully: $message");
-//       }
-//     }
-//   }, onError: (CometChatException e) {
-//     debugPrint("Message fetching failed with exception: ${e.message}");
-//   });
-// }
 
 void unreadMessagesCometChat(String id) {
   int limit = 30;
@@ -266,44 +246,6 @@ void audioCallCometchat(
         ),
       ),
     );
-
-    // String sessionId = call.sessionId.toString();
-    // CometChat.getUserAuthToken().then((String? userAuthToken) {
-    //   if (userAuthToken != null) {
-    //     CometChatCalls.generateToken(
-    //       sessionId,
-    //       userAuthToken,
-    //       onSuccess: (GenerateToken generateToken) {
-
-    //         String generatedToken =
-    //             generateToken.token.toString();
-
-    //         CallSettings callSettings = (CallSettingsBuilder()
-    //               ..enableDefaultLayout = false
-    //               ..setAudioOnlyCall = true
-    //             // ..listener = this //CometChatCallsEventsListener
-    //             )
-    //             .build();
-
-    //         CometChatCalls.startSession(generatedToken, callSettings,
-    //             onSuccess: (Widget? callingWidget) {
-
-    //           debugPrint("startCallSession success");
-    //         }, onError: (CometChatCallsException e) {
-    //           debugPrint("startCallSession Error: $e");
-    //         });
-    //         debugPrint("generateToken success: ${generateToken.token}");
-    //       },
-    //       onError: (CometChatCallsException e) {
-    //         debugPrint("generateToken Error: $e");
-    //       },
-    //     );
-    //   } else {
-    //     debugPrint("User auth token is null or invalid");
-    //   }
-    // }).catchError((error) {
-    //   debugPrint("Error getting user auth token: $error");
-    // });
   }, onError: (CometChatException e) {
     debugPrint("Error: $e");
   });

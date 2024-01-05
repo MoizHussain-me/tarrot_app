@@ -39,6 +39,9 @@ dependencies:
   firebase_auth: ^4.10.0
   provider: any
   shared_preferences: ^2.2.2
+  cometchat_chat_uikit: any
+  cometchat_calls_uikit: any
+  cometchat_sdk: any
 
 dev_dependencies:
   flutter_test:
