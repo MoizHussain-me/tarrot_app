@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tarrot_app/ViewModel/auth_view_model.dart';
+import 'package:tarrot_app/ViewModel/auth_viewmodel.dart';
 
 class OtpPage extends StatefulWidget {
   final String verificationId;

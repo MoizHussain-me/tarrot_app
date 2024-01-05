@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:tarrot_app/Model/app_user.dart';
-import 'package:tarrot_app/ViewModel/shared_preferences_view_model.dart';
+import 'package:tarrot_app/ViewModel/shared_preferences_viewmodel.dart';
 import 'package:tarrot_app/Views/Authentication/otp_page.dart';
 
 class AuthViewModel with ChangeNotifier {
@@ -41,29 +41,4 @@ class AuthViewModel with ChangeNotifier {
       });
     
   }
-
-  // Future<String> checkAuth(String phoneNum) async {
-  //   final CollectionReference users =
-  //       FirebaseFirestore.instance.collection('users');
-  //   try {
-  //     QuerySnapshot querySnapshot = await users.get();
-  //     if (querySnapshot != null) {
-  //       for (QueryDocumentSnapshot doc in querySnapshot.docs) {
-  //         Map<String, dynamic>? data = doc.data() as Map<String,
-  //             dynamic>?; // Explicitly cast to Map<String, dynamic> or null
-  //         if (data != null && data['Number'] == phoneNum) {
-  //           final user = UserModel.fromJson(data);
-  //           Utils.saveCustomer(user);
-  //           return data['CometChatId'].toString();
-  //         }
-  //       }
-  //       return "Don't exist";
-  //     }
-  //   } catch (e) {
-  //     if (kDebugMode) {
-  //       debugPrint('Error: $e');
-  //     }
-  //   }
-  //   return "Don't exist";
-  // }
 }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tarrot_app/Routes/routes.dart';
 import 'package:tarrot_app/Routes/routes_name.dart';
-import 'package:tarrot_app/ViewModel/auth_view_model.dart';
+import 'package:tarrot_app/ViewModel/auth_viewmodel.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
