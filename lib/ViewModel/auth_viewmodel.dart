@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:tarrot_app/Model/app_user.dart';
 import 'package:tarrot_app/ViewModel/shared_preferences_viewmodel.dart';
-import 'package:tarrot_app/Views/Authentication/otp_page.dart';
+import '../Views/Authentication/otp_verification/otp_page.dart';
 
 class AuthViewModel with ChangeNotifier {
   final _auth = FirebaseAuth.instance;

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tarrot_app/Routes/routes_name.dart';
 import 'package:tarrot_app/Views/Animations/splash_page.dart';
-import 'package:tarrot_app/Views/Authentication/login_page.dart';
-import 'package:tarrot_app/Views/Authentication/otp_page.dart';
+import 'package:tarrot_app/Views/Authentication/login/login_page.dart';
+import 'package:tarrot_app/Views/Authentication/otp_verification/otp_page.dart';
 import 'package:tarrot_app/Views/Pages/dashboard_page.dart';
 
 class Routes {

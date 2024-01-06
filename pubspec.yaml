@@ -43,6 +43,9 @@ dependencies:
   cometchat_calls_uikit: any
   cometchat_sdk: any
   http: any
+  country_code_picker: any
+  country_picker: any
+  another_flushbar: any
 
 dev_dependencies:
   flutter_test:

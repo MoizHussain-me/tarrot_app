@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:tarrot_app/ViewModel/shared_preferences_viewmodel.dart';
-import 'package:tarrot_app/Views/Authentication/login_page.dart';
+import 'package:tarrot_app/Views/Authentication/login/login_page.dart';
 import 'package:tarrot_app/Views/Pages/dashboard_page.dart';
 
 class SplashPage extends StatefulWidget  {
