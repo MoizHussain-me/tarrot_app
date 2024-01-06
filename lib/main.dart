@@ -4,6 +4,7 @@ import 'package:tarrot_app/Routes/routes.dart';
 import 'package:tarrot_app/Routes/routes_name.dart';
 import 'package:tarrot_app/ViewModel/auth_viewmodel.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'ViewModel/dashboard_viewmodel.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => AuthViewModel()),
+        ChangeNotifierProvider(create: (_) => DashboardViewModel()),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
@@ -29,7 +31,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        initialRoute: RouteName.splash,
+        initialRoute: RouteName.dashboard,
         onGenerateRoute: Routes.generateRoute,
       
     ));
