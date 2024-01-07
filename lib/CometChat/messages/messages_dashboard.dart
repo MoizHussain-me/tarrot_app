@@ -21,12 +21,8 @@ class MessagesModule extends StatelessWidget {
           context,
           MaterialPageRoute(
               builder: (context) => CometChatMessages(
-                    group: Group(
-                        guid: "supergroup",
-                        membersCount: 6,
-                        name: "Avengers",
-                        hasJoined: true,
-                        type: GroupTypeConstants.public),
+                user: User(uid: "1234",name: "Farhan"),
+                    
                   )),
         );
       },

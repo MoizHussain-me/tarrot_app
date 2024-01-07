@@ -145,7 +145,15 @@ class _TarrotCardReadersCard extends State<TarrotCardReadersCard> {
                           ),
                         ),
                         onPressed: () {
-                          navigateToMessagesScreen();
+                        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => CometChatMessages(
+                user: User(uid: "1234",name: "Farhan"),
+                    
+                  )),
+        );
+                         // navigateToMessagesScreen();
                         },
                         child: const Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -205,50 +213,50 @@ class _TarrotCardReadersCard extends State<TarrotCardReadersCard> {
       ),
     );
   }
-  void navigateToMessagesScreen(
-      {User? user, Group? group, BuildContext? context}) {
-    Navigator.push(
-        context ?? this.context,
-        MaterialPageRoute(
-            builder: (context) => CometChatMessages(
-                  user: user,
-                  group: group,
-                  messageComposerConfiguration:
-                      messageConfiguration?.messageComposerConfiguration ??
-                          const MessageComposerConfiguration(),
-                  messageListConfiguration:
-                      messageConfiguration?.messageListConfiguration ??
-                          const MessageListConfiguration(),
-                  messageHeaderConfiguration:
-                      messageConfiguration?.messageHeaderConfiguration ??
-                          const MessageHeaderConfiguration(),
-                  customSoundForIncomingMessagePackage: messageConfiguration
-                      ?.customSoundForIncomingMessagePackage,
-                  customSoundForIncomingMessages:
-                      messageConfiguration?.customSoundForIncomingMessages,
-                  customSoundForOutgoingMessagePackage: messageConfiguration
-                      ?.customSoundForOutgoingMessagePackage,
-                  customSoundForOutgoingMessages:
-                      messageConfiguration?.customSoundForOutgoingMessages,
-                  detailsConfiguration:
-                      messageConfiguration?.detailsConfiguration,
-                  disableSoundForMessages:
-                      messageConfiguration?.disableSoundForMessages,
-                  disableTyping: messageConfiguration?.disableTyping ?? false,
-                  hideMessageComposer:
-                      messageConfiguration?.hideMessageComposer ?? false,
-                  hideMessageHeader: messageConfiguration?.hideMessageHeader,
-                  messageComposerView:
-                      messageConfiguration?.messageComposerView,
-                  messageHeaderView: messageConfiguration?.messageHeaderView,
-                  messageListView: messageConfiguration?.messageListView,
-                  messagesStyle: messageConfiguration?.messagesStyle,
-                  theme: messageConfiguration?.theme ?? theme,
-                  threadedMessagesConfiguration:
-                      messageConfiguration?.threadedMessagesConfiguration,
-                  hideDetails: messageConfiguration?.hideDetails,
-                )));
-  }
+  // void navigateToMessagesScreen(
+  //     {User? user, Group? group, BuildContext? context}) {
+  //   Navigator.push(
+  //       context ?? this.context,
+  //       MaterialPageRoute(
+  //           builder: (context) => CometChatMessages(
+  //                 user: user,
+  //                 group: group,
+  //                 messageComposerConfiguration:
+  //                     messageConfiguration?.messageComposerConfiguration ??
+  //                         const MessageComposerConfiguration(),
+  //                 messageListConfiguration:
+  //                     messageConfiguration?.messageListConfiguration ??
+  //                         const MessageListConfiguration(),
+  //                 messageHeaderConfiguration:
+  //                     messageConfiguration?.messageHeaderConfiguration ??
+  //                         const MessageHeaderConfiguration(),
+  //                 customSoundForIncomingMessagePackage: messageConfiguration
+  //                     ?.customSoundForIncomingMessagePackage,
+  //                 customSoundForIncomingMessages:
+  //                     messageConfiguration?.customSoundForIncomingMessages,
+  //                 customSoundForOutgoingMessagePackage: messageConfiguration
+  //                     ?.customSoundForOutgoingMessagePackage,
+  //                 customSoundForOutgoingMessages:
+  //                     messageConfiguration?.customSoundForOutgoingMessages,
+  //                 detailsConfiguration:
+  //                     messageConfiguration?.detailsConfiguration,
+  //                 disableSoundForMessages:
+  //                     messageConfiguration?.disableSoundForMessages,
+  //                 disableTyping: messageConfiguration?.disableTyping ?? false,
+  //                 hideMessageComposer:
+  //                     messageConfiguration?.hideMessageComposer ?? false,
+  //                 hideMessageHeader: messageConfiguration?.hideMessageHeader,
+  //                 messageComposerView:
+  //                     messageConfiguration?.messageComposerView,
+  //                 messageHeaderView: messageConfiguration?.messageHeaderView,
+  //                 messageListView: messageConfiguration?.messageListView,
+  //                 messagesStyle: messageConfiguration?.messagesStyle,
+  //                 theme: messageConfiguration?.theme ?? theme,
+  //                 threadedMessagesConfiguration:
+  //                     messageConfiguration?.threadedMessagesConfiguration,
+  //                 hideDetails: messageConfiguration?.hideDetails,
+  //               )));
+  // }
 
 
 }
