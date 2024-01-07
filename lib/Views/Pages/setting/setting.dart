@@ -1,6 +1,9 @@
 // ignore_for_file: camel_case_types
 
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../Routes/routes_name.dart';
 
 class settingPage extends StatefulWidget {
   const settingPage({super.key});
@@ -248,11 +251,13 @@ class _settingPageState extends State<settingPage> {
                                       ),
                                       Expanded(
                                         child: InkWell(
-                                          onTap: () {
-                                           
-
-                                            // Navigator.pushReplacementNamed(
-                                            //     context, RouteName.login);
+                                          onTap: () async {
+                                            SharedPreferences prefs =
+                                                await SharedPreferences
+                                                    .getInstance();
+                                            await prefs.clear();
+                                            Navigator.pushReplacementNamed(
+                                                context, RouteName.login);
                                           },
                                           child: const Center(
                                             child: Text(
@@ -328,7 +333,6 @@ class _settingPageState extends State<settingPage> {
   }
 }
 
-
 class profile extends StatefulWidget {
   const profile({Key? key}) : super(key: key);
 
@@ -363,12 +367,12 @@ class _profileState extends State<profile> {
                       ),
                       const Center(
                         child: CircleAvatar(
-                          backgroundImage: AssetImage('asset/images/profile.jpg'),
+                          backgroundImage:
+                              AssetImage('asset/images/profile.jpg'),
                           radius: 50,
                         ),
                       ),
                       const Center(
-
                         child: Text(
                           "Farhan Atif",
                           style: TextStyle(

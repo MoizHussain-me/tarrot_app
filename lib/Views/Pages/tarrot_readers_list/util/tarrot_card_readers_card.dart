@@ -145,15 +145,15 @@ class _TarrotCardReadersCard extends State<TarrotCardReadersCard> {
                           ),
                         ),
                         onPressed: () {
-                        Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => CometChatMessages(
-                user: User(uid: "1234",name: "Farhan"),
-                    
-                  )),
-        );
-                         // navigateToMessagesScreen();
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => CometChatMessages(
+                                      user:
+                                          User(uid: "1234", name: "test user"),
+                                    )),
+                          );
+                          // navigateToMessagesScreen();
                         },
                         child: const Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -257,6 +257,4 @@ class _TarrotCardReadersCard extends State<TarrotCardReadersCard> {
   //                 hideDetails: messageConfiguration?.hideDetails,
   //               )));
   // }
-
-
 }

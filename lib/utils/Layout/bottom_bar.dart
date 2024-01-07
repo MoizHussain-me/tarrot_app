@@ -19,7 +19,7 @@ class MyBottomBar extends StatelessWidget {
         index: selectedIndex,
         items: const [
           Icon(
-            Icons.search_sharp,
+            Icons.messenger,
             color: Colors.white,
           ),
           Icon(

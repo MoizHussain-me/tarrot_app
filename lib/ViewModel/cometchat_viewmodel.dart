@@ -64,7 +64,7 @@ initializer(){
 
 
 
-  loginUser(String userId, BuildContext context) async {
+  loginUser(String userId) async {
     // ToastContext().init(context); //Replace with name and uid of user
     User? _user = await CometChat.getLoggedInUser();
     try {

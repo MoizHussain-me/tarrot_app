@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:tarrot_app/CometChat/working_screens/previous_messages_list.dart';
 import 'package:tarrot_app/utils/Layout/bottom_bar.dart';
 import 'package:tarrot_app/utils/Layout/card_list_header.dart';
 
@@ -18,7 +19,7 @@ class MyAppLayout extends StatefulWidget {
 class _MyAppLayoutState extends State<MyAppLayout> {
   int _selectedIndex = 1;
   static const List<Widget> _widgetOptions = <Widget>[
-    TarrotCardList(),
+    PreviousMessagesList(),
     DashboardPage(),
     settingPage()
   ];

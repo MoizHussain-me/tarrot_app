@@ -32,7 +32,7 @@ class _DashboardPageState extends State<DashboardPage> {
     experiencedTarot = dashboardViewModel.fetchCards(numberOfCards: 5);
     todayCard = dashboardViewModel.fetchSingleCard();
     cometChatViewModel.initializer();
-    cometChatViewModel.loginUser('123', context);
+    cometChatViewModel.loginUser('123');
     Size size = MediaQuery.of(context).size;
     return WillPopScope(
       onWillPop: () async {

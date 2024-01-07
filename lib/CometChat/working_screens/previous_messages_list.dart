@@ -93,10 +93,10 @@ class _PreviousMessagesListState
             hideError: widget.conversationsConfiguration?.hideError,
             stateCallBack: widget.conversationsConfiguration?.stateCallBack,
             showBackButton:
-                widget.conversationsConfiguration?.showBackButton ?? true,
+                widget.conversationsConfiguration?.showBackButton ?? false,
             theme: widget.conversationsConfiguration?.theme ?? _theme,
-            title: widget.conversationsConfiguration?.title,
-            subtitleView: widget.conversationsConfiguration?.subtitleView,
+            // title: widget.conversationsConfiguration?.title,
+            // subtitleView: widget.conversationsConfiguration?.subtitleView,
             backButton: widget.conversationsConfiguration?.backButton,
             avatarStyle: widget.conversationsConfiguration?.avatarStyle,
             customSoundForMessages:

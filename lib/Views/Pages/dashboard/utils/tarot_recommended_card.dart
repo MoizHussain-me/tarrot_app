@@ -1,3 +1,4 @@
+import 'package:cometchat_chat_uikit/cometchat_chat_uikit.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../Model/readers_model.dart';
@@ -46,7 +47,7 @@ class TarrotRecommendCard extends StatelessWidget {
                     ),
                   ],
                 ),
-                child:  Row(
+                child: Row(
                   children: [
                     const Icon(
                       Icons.star,
@@ -90,7 +91,13 @@ class TarrotRecommendCard extends StatelessWidget {
           ),
           TextButton(
             onPressed: () {
-              // Handle button click
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => CometChatMessages(
+                          user: User(uid: "1234", name: "test user"),
+                        )),
+              );
             },
             style: TextButton.styleFrom(
               backgroundColor: Colors.green,
