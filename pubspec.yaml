@@ -46,6 +46,9 @@ dependencies:
   country_code_picker: any
   country_picker: any
   another_flushbar: any
+  cloud_firestore: any
+  curved_navigation_bar: any
+
   flutter_localizations:
     sdk: flutter
 

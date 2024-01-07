@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:tarrot_app/ViewModel/shared_preferences_viewmodel.dart';
 import 'package:tarrot_app/Views/Authentication/login/login_page.dart';
-import 'package:tarrot_app/Views/Pages/dashboard_page.dart';
+import 'package:tarrot_app/utils/Layout/app_layout.dart';
 
 class SplashPage extends StatefulWidget  {
   const SplashPage({super.key});
@@ -24,7 +24,7 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
       Navigator.of(context).pushReplacement(
       MaterialPageRoute(builder: (_)=> const LoginPage())):
       Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (_)=> const DashboardPage()));
+      MaterialPageRoute(builder: (_)=> const MyAppLayout()));
     }
     );
   }
