@@ -46,6 +46,8 @@ dependencies:
   country_code_picker: any
   country_picker: any
   another_flushbar: any
+  flutter_localizations:
+    sdk: flutter
 
 dev_dependencies:
   flutter_test:

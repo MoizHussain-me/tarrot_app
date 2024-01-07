@@ -14,7 +14,7 @@ class LoginForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+//final GlobalKey<FormState> formKey = GlobalKey<FormState>();
     final authViewModel = Provider.of<AuthViewModel>(context);
     return Form(
       child: Column(
@@ -48,9 +48,9 @@ final GlobalKey<FormState> formKey = GlobalKey<FormState>();
       callback: () {
         String phoneNumber = MyTextField.getTextFromTextField();
         String countryCode = ccp.phonecode;
-        if (phoneNumber == null || phoneNumber.isEmpty || phoneNumber == "") {
+        if (phoneNumber.isEmpty || phoneNumber == "") {
           Utils.flushbarMessage('Please enter phone number', context);
-        } else if (countryCode == null || countryCode.isEmpty || countryCode == "") {
+        } else if (countryCode.isEmpty || countryCode == "") {
           Utils.flushbarMessage('Please Select Country Code', context);
         } else if (phoneNumber.startsWith('0')) {
           Utils.flushbarMessage('Please remove zero from start', context);
