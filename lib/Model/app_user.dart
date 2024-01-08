@@ -12,7 +12,6 @@ class AppUser {
 
   factory AppUser.fromUserCredential(UserCredential userCredential) {
     final user = userCredential.user;
-
     return AppUser(
       isNewUser: userCredential.additionalUserInfo?.isNewUser ?? false,
       phoneNumber: user?.phoneNumber ?? '',

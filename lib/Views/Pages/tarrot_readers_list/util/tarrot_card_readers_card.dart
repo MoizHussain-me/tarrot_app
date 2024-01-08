@@ -150,7 +150,7 @@ class _TarrotCardReadersCard extends State<TarrotCardReadersCard> {
                             MaterialPageRoute(
                                 builder: (context) => CometChatMessages(
                                       user:
-                                          User(uid: "1234", name: "test user"),
+                                          User(uid: "12345", name: "Moiz Hussain"),
                                     )),
                           );
                           // navigateToMessagesScreen();

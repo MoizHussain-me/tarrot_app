@@ -95,7 +95,7 @@ class TarrotRecommendCard extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                     builder: (context) => CometChatMessages(
-                          user: User(uid: "1234", name: "test user"),
+                          user: User(uid: "12345", name: "Moiz Hussain"),
                         )),
               );
             },

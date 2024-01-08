@@ -1,0 +1,4 @@
+enum RoleEnum {
+User,
+Reader
+}
