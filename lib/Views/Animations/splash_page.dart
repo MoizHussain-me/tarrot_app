@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'package:tarrot_app/ViewModel/shared_preferences_viewmodel.dart';
 import 'package:tarrot_app/Views/Authentication/login/login_page.dart';
 import 'package:tarrot_app/utils/Layout/app_layout.dart';
+
+import '../../ViewModel/cometchat_viewmodel.dart';
 
 class SplashPage extends StatefulWidget  {
   const SplashPage({super.key});
@@ -38,6 +41,8 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
 
   @override
   Widget build(BuildContext context) {
+        final cometChatViewModel = Provider.of<CometChatViewModel>(context);
+        cometChatViewModel.initializer();
     return Scaffold(
       body: Container(
         width: double.infinity,
