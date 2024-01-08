@@ -3,7 +3,7 @@ class AppStrings {
   static const String appId = "2471976628550113";
   static const String authKey = "dad552ade460dba8140c20d23dbd5c9e2226268a";
   static const String region = "us";
-
+  static const String apiKey = "fd708b7944f7538a7f149fa7423ba87e1a33e834";
 
 //Login Page
    static String loginButton = "Login";

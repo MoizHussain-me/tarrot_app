@@ -1,17 +1,20 @@
-import 'package:cometchat_sdk/models/user.dart' as user;
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cometchat_chat_uikit/cometchat_chat_uikit.dart';
+import 'package:cometchat_sdk/models/user.dart';
+import 'package:firebase_auth/firebase_auth.dart' as firebaseUser;
 import 'package:flutter/material.dart';
+import 'package:tarrot_app/Model/user_model.dart';
 import 'package:tarrot_app/ViewModel/shared_preferences_viewmodel.dart';
+import 'package:tarrot_app/utils/app_strings.dart';
 import '../Views/Authentication/otp_verification/otp_page.dart';
 import '../utils/Layout/app_layout.dart';
 
 class AuthViewModel with ChangeNotifier {
-  final _auth = FirebaseAuth.instance;
+  final _auth = firebaseUser.FirebaseAuth.instance;
 
   void sendOtp(String phoneNumber, BuildContext context) {
     _auth.verifyPhoneNumber(
         phoneNumber: phoneNumber,
-        verificationCompleted: (PhoneAuthCredential credential) async {
+        verificationCompleted: (firebaseUser.PhoneAuthCredential credential) async {
           await _auth.signInWithCredential(credential);
         },
         verificationFailed: (e) {
@@ -34,14 +37,23 @@ class AuthViewModel with ChangeNotifier {
 
   void verifyOtp(String verificationId, String otp, String phoneNum,
       BuildContext context) async {
-    final credential = PhoneAuthProvider.credential(
+    final credential = firebaseUser.PhoneAuthProvider.credential(
         verificationId: verificationId, smsCode: otp);
     await _auth.signInWithCredential(credential).then((value) async {
       debugPrint("Alaaaad  $value");
-      user.User customUser = user.User(name: '',uid: value.user!.uid.toString());
-      await SharedPreferencesHelper.setObject('user', customUser.toJson());
+      UserModel customUser = UserModel.fromUser(value);
+      CometChat.createUser(customUser, AppStrings.authKey, onSuccess: (user) async{
+
+await SharedPreferencesHelper.setObject('user', user.toJson());
       Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (_) => const MyAppLayout()));
+
+      }, 
+      onError: (err){
+        debugPrint("Agar kuch hai tu bata do $err");
+      });
+
+      
     });
   }
 }

@@ -1,6 +1,8 @@
 import 'package:cometchat_chat_uikit/cometchat_chat_uikit.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebaseUser;
+import 'package:flutter/material.dart';
 import 'package:tarrot_app/Model/role_enum.dart';
+import 'package:tarrot_app/utils/app_strings.dart';
 
 class UserModel extends User {
   UserModel(
@@ -18,10 +20,10 @@ class UserModel extends User {
       super.blockedByMe});
 
 
-  factory UserModel.fromTarrotUser(firebaseUser.UserCredential userCredential) {
+  factory UserModel.fromUser(firebaseUser.UserCredential userCredential) {
     final user = userCredential.user;
     return UserModel(
-      role: RoleEnum.User.toString(),
+      role: RoleEnum.Default.toString(),
       metadata: {
         "PhoneNumber": user?.phoneNumber ?? '',
       },
@@ -38,8 +40,22 @@ class UserModel extends User {
     );
   }
 
-
-
-
+ Future<bool> updateUser(String uid, UserModel obj) async {
+    await CometChat.getUser(uid, onSuccess: (User user) async {
+      user.name= obj.name;
+      user.avatar = obj.avatar;
+      user.metadata = obj.metadata;
+      user.role = obj.role;
+      
+      await CometChat.updateUser(user,AppStrings.apiKey, onSuccess: (User retUser){
+        debugPrint('User updated successfully: $retUser');
+        return true;
+      }, onError: (CometChatException excep) {  });
+    }, onError: (CometChatException excep) {
+      debugPrint('Error fetching user by UID: $excep');
+      return false;
+    });
+    return false;
+}
 
 }
