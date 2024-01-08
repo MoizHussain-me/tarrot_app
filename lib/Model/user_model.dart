@@ -2,7 +2,6 @@ import 'package:cometchat_chat_uikit/cometchat_chat_uikit.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebaseUser;
 import 'package:flutter/material.dart';
 import 'package:tarrot_app/Model/role_enum.dart';
-import 'package:tarrot_app/utils/app_strings.dart';
 
 class UserModel extends User {
   UserModel(
@@ -23,12 +22,12 @@ class UserModel extends User {
   factory UserModel.fromUser(firebaseUser.UserCredential userCredential) {
     final user = userCredential.user;
     return UserModel(
-      role: RoleEnum.Default.toString(),
+      role: null,
       metadata: {
         "PhoneNumber": user?.phoneNumber ?? '',
       },
       uid: user?.uid ?? '',
-      name: '',
+      name: 'User',
       avatar: null,
       blockedByMe: false,
       hasBlockedMe: false,
@@ -47,7 +46,7 @@ class UserModel extends User {
       user.metadata = obj.metadata;
       user.role = obj.role;
       
-      await CometChat.updateUser(user,AppStrings.apiKey, onSuccess: (User retUser){
+      await CometChatUIKit.updateUser(user, onSuccess: (User retUser){
         debugPrint('User updated successfully: $retUser');
         return true;
       }, onError: (CometChatException excep) {  });

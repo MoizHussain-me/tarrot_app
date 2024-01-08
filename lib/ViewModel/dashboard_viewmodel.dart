@@ -22,8 +22,8 @@ class DashboardViewModel with ChangeNotifier {
   }
 
   Future<RandomCard> fetchSingleCard() async {
-    final response =
-        await http.get( Uri.parse('https://tarotapi.dev/api/v1/cards/random?n=1'));
+    final response = await http
+        .get(Uri.parse('https://tarotapi.dev/api/v1/cards/random?n=1'));
 
     if (response.statusCode == 200) {
       dynamic cardJson = jsonDecode(response.body)['cards'][0];
@@ -35,7 +35,6 @@ class DashboardViewModel with ChangeNotifier {
   }
 
   Future<List<ReadersModel>> getAllReaders() async {
-    
     final CollectionReference categories =
         FirebaseFirestore.instance.collection('Readers');
     List<ReadersModel> readersList = [];
@@ -54,12 +53,9 @@ class DashboardViewModel with ChangeNotifier {
         }
       }
     } catch (e) {
-        debugPrint('Error: $e');
-      
+      debugPrint('Error: $e');
     }
     print(readersList);
     return readersList;
   }
-
-
 }
