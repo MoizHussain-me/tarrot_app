@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../Routes/routes_name.dart';
+import '../registration/register_user.dart';
 
 class settingPage extends StatefulWidget {
   const settingPage({super.key});
@@ -406,11 +407,9 @@ class _profileState extends State<profile> {
                         children: [
                           InkWell(
                             onTap: () {
-                              // Navigator.push(
-                              //   context,
-                              //   MaterialPageRoute(
-                              //       builder: (context) => const profile_page()),
-                              // );
+                              Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                      builder: (_) => const RegisterUser()));
                             },
                             child: const Center(
                               child: Text(
@@ -425,11 +424,11 @@ class _profileState extends State<profile> {
                           ),
                           InkWell(
                             onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const settingPage()),
-                              );
+                              // Navigator.push(
+                              //   context,
+                              //   MaterialPageRoute(
+                              //       builder: (context) => const settingPage()),
+                              // );
                             },
                             child: const Center(
                               child: Text(

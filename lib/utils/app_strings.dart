@@ -24,4 +24,10 @@ class AppStrings {
   static String confirmMessge = "If you didn't recieve a code! ";
   static String resendMessage = "Resend";
   static String changeNumber = "Change Mobile Number";
+
+
+
+//Register Page Texts
+  static String registerTitle = "Create Profile";
+
 }

@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart' as firebaseUser;
 import 'package:flutter/material.dart';
 import 'package:tarrot_app/Model/role_enum.dart';
 
+import '../ViewModel/shared_preferences_viewmodel.dart';
+
 class UserModel extends User {
   UserModel(
       {super.uid = "",
@@ -39,14 +41,15 @@ class UserModel extends User {
     );
   }
 
- Future<bool> updateUser(String uid, UserModel obj) async {
+static Future<bool>  updateUser(String uid, UserModel obj) async {
     await CometChat.getUser(uid, onSuccess: (User user) async {
       user.name= obj.name;
       user.avatar = obj.avatar;
       user.metadata = obj.metadata;
       user.role = obj.role;
       
-      await CometChatUIKit.updateUser(user, onSuccess: (User retUser){
+      await CometChatUIKit.updateUser(user, onSuccess: (User retUser) async{
+            await SharedPreferencesHelper.setObject('user', retUser.toJson());
         debugPrint('User updated successfully: $retUser');
         return true;
       }, onError: (CometChatException excep) {  });
