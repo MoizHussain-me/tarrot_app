@@ -196,7 +196,7 @@ class _RegisterUserState extends State<RegisterUser> {
                                         UserModel data = UserModel(
                                             name: fullnamecontroller.text
                                                 .toString(),
-                                 u           role: selectedOption.toString());
+                                           role: selectedOption.toString());
 
                                         User? retrievedUser =
                                             await SharedPreferencesHelper
