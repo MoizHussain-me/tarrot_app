@@ -1,10 +1,10 @@
+import 'package:cometchat_chat_uikit/cometchat_chat_uikit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:tarrot_app/ViewModel/shared_preferences_viewmodel.dart';
-import 'package:tarrot_app/Views/Authentication/login/login_page.dart';
+import 'package:tarrot_app/Views/Authentication/Login/login_page.dart';
 import 'package:tarrot_app/utils/Layout/app_layout.dart';
-
 import '../../ViewModel/cometchat_viewmodel.dart';
 
 class SplashPage extends StatefulWidget  {
@@ -21,13 +21,22 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
     //uper status bar aur neechy buttons hide karnye k liye
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
     Future.delayed(const Duration(seconds: 2),() async{
-      Map<String, dynamic>? customUserMap = await SharedPreferencesHelper.getObject<Map<String, dynamic>>('user');
-
-      customUserMap == null ? 
+    Map<String, dynamic>? customUserMap = await SharedPreferencesHelper.getObject<Map<String, dynamic>>('user');  
+    if(customUserMap == null)
+    {
+      if (!context.mounted) return;
       Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (_)=> const LoginPage())):
+      MaterialPageRoute(builder: (_)=> const LoginPage()));
+    }
+    else{
+      CometChatUIKit.login(customUserMap["uid"], onSuccess: (user)async {
+      debugPrint("User Logged In");
+      await SharedPreferencesHelper.setObject('user', user.toJson());
+      if (!context.mounted) return;
       Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (_)=> const MyAppLayout()));
+          MaterialPageRoute(builder: (_) => const MyAppLayout()));
+      });
+    }
     }
     );
   }

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../utils/BasicComponents/my_button.dart';
-import '../../../utils/BasicComponents/my_text.dart';
-import '../../../utils/BasicComponents/my_text_field.dart';
-import '../../../utils/BasicComponents/number_field_with_c_code.dart';
-import '../../../utils/app_strings.dart';
-import '../../../utils/myUtils.dart';
+import '../../../../utils/BasicComponents/my_button.dart';
+import '../../../../utils/BasicComponents/my_text.dart';
+import '../../../../utils/BasicComponents/my_text_field.dart';
+import '../../../../utils/BasicComponents/number_field_with_c_code.dart';
+import '../../../../utils/app_strings.dart';
+import '../../../../utils/my_utils.dart';
 import 'package:tarrot_app/utils/country_code_picker.dart' as ccp;
 import 'package:tarrot_app/ViewModel/auth_viewmodel.dart';
 

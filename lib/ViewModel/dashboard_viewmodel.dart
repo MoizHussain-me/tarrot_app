@@ -1,10 +1,9 @@
+import 'dart:async';
 import 'dart:convert';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cometchat_chat_uikit/cometchat_chat_uikit.dart';
 import 'package:flutter/material.dart';
 import '../Model/random_card.dart';
 import 'package:http/http.dart' as http;
-
-import '../Model/readers_model.dart';
 
 class DashboardViewModel with ChangeNotifier {
   Future<List<RandomCard>> fetchCards({required int numberOfCards}) async {
@@ -34,28 +33,29 @@ class DashboardViewModel with ChangeNotifier {
     }
   }
 
-  Future<List<ReadersModel>> getAllReaders() async {
-    final CollectionReference categories =
-        FirebaseFirestore.instance.collection('Readers');
-    List<ReadersModel> readersList = [];
+Future<List<User>> getAllReaders(int limit) async {
+  List<User> readersList = [];
 
-    try {
-      QuerySnapshot querySnapshot = await categories.get();
-      if (querySnapshot != null) {
-        for (QueryDocumentSnapshot doc in querySnapshot.docs) {
-          Map<String, dynamic>? data = doc.data() as Map<String, dynamic>;
-          if (data != null) {
-            if (data["status"] == "approve") {
-              ReadersModel category = ReadersModel.fromJson(data);
-              readersList.add(category);
-            }
-          }
-        }
-      }
-    } catch (e) {
-      debugPrint('Error: $e');
-    }
-    print(readersList);
-    return readersList;
+  Completer<List<User>> completer = Completer();
+
+  try {
+    UsersRequest usersRequest = (UsersRequestBuilder()
+      ..limit = limit
+      ..roles = ['2']
+    ).build();
+
+    await usersRequest.fetchNext(onSuccess: (List<User> userList) {
+      readersList.addAll(userList);
+      completer.complete(readersList);
+    }, onError: (CometChatException e) {
+      debugPrint("User List Fetch Failed: ${e.message}");
+      completer.completeError(e);
+    });
+  } catch (e) {
+    debugPrint('Error: $e');
+    completer.completeError(e);
   }
+
+  return completer.future;
+}
 }
