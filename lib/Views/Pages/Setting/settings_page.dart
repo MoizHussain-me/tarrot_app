@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tarrot_app/Routes/routes_name.dart';
 import 'package:tarrot_app/ViewModel/shared_preferences_viewmodel.dart';
 import 'package:tarrot_app/Views/Pages/Registration/registeration_page.dart';
-import '../../../Routes/routes_name.dart';
 
 class SettingPage extends StatefulWidget {
   const SettingPage({super.key});
@@ -259,9 +259,7 @@ class _SettingPageState extends State<SettingPage> {
                                       Expanded(
                                         child: InkWell(
                                           onTap: () async {
-                                            SharedPreferences prefs =
-                                                await SharedPreferences
-                                                    .getInstance();
+                                            SharedPreferences prefs = await SharedPreferences.getInstance();
                                             await prefs.clear();
                                             Navigator.pushReplacementNamed(
                                                 context, RouteName.login);
