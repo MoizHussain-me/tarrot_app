@@ -1,8 +1,6 @@
 import 'package:cometchat_chat_uikit/cometchat_chat_uikit.dart';
-import 'package:firebase_auth/firebase_auth.dart' as firebaseUser;
+import 'package:firebase_auth/firebase_auth.dart' as firebase_user;
 import 'package:flutter/material.dart';
-import 'package:tarrot_app/Model/role_enum.dart';
-
 import '../ViewModel/shared_preferences_viewmodel.dart';
 
 class UserModel extends User {
@@ -21,7 +19,7 @@ class UserModel extends User {
       super.blockedByMe});
 
 
-  factory UserModel.fromUser(firebaseUser.UserCredential userCredential) {
+  factory UserModel.fromUser(firebase_user.UserCredential userCredential) {
     final user = userCredential.user;
     return UserModel(
       role: null,

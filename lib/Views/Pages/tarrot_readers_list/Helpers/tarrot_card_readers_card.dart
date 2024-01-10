@@ -1,14 +1,9 @@
-// ignore_for_file: file_names, prefer_const_constructors_in_immutables
-
 import 'package:cometchat_chat_uikit/cometchat_chat_uikit.dart';
 import 'package:flutter/material.dart';
-
-import '../../../../Model/readers_model.dart';
-
 class TarrotCardReadersCard extends StatefulWidget {
-  final ReadersModel data;
+  final User data;
 
-  TarrotCardReadersCard(this.data, {Key? key}) : super(key: key);
+ const TarrotCardReadersCard(this.data, {Key? key}) : super(key: key);
 
   @override
   State<TarrotCardReadersCard> createState() => _TarrotCardReadersCard();
@@ -36,7 +31,7 @@ class _TarrotCardReadersCard extends State<TarrotCardReadersCard> {
                         borderRadius: BorderRadius.circular(8),
                         image: DecorationImage(
                           image:
-                              NetworkImage(widget.data.readersImg.toString()),
+                              NetworkImage(widget.data.avatar.toString()),
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -50,7 +45,7 @@ class _TarrotCardReadersCard extends State<TarrotCardReadersCard> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                widget.data.readersName.toString(),
+                                widget.data.name.toString(),
                                 style: const TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
@@ -66,63 +61,68 @@ class _TarrotCardReadersCard extends State<TarrotCardReadersCard> {
                           const SizedBox(
                             height: 3,
                           ),
-                          Row(
+                          const Row(
                             children: [
-                              const Icon(Icons.support_agent_rounded,
+                              Icon(Icons.support_agent_rounded,
                                   color: Colors.grey),
-                              const SizedBox(width: 8),
+                              SizedBox(width: 8),
                               Text(
-                                widget.data.readersExpert.toString(),
-                                style: const TextStyle(
+                                "5 years",
+                                //widget.data.readersExpert.toString(),
+                                style: TextStyle(
                                     fontSize: 16, color: Colors.grey),
                               ),
-                              const Text(
+                              Text(
                                 ' +7 more',
                                 style:
                                     TextStyle(fontSize: 16, color: Colors.blue),
                               ),
                             ],
                           ),
-                          Row(
+                          const Row(
                             children: [
-                              const Icon(Icons.g_translate_outlined,
+                              Icon(Icons.g_translate_outlined,
                                   color: Colors.grey),
-                              const SizedBox(width: 8),
+                              SizedBox(width: 8),
                               Text(
-                                widget.data.readersLanguage.toString(),
-                                style: const TextStyle(
+                                "English",
+                                //widget.data.readersLanguage.toString(),
+                                style: TextStyle(
                                     fontSize: 16, color: Colors.grey),
                               ),
-                              const Text(
+                              Text(
                                 ' +2 more',
                                 style:
                                     TextStyle(fontSize: 16, color: Colors.blue),
                               ),
                             ],
                           ),
-                          Row(
+                          const Row(
                             children: [
-                              const Icon(Icons.school_outlined,
+                              Icon(Icons.school_outlined,
                                   color: Colors.grey),
-                              const SizedBox(width: 8),
+                              SizedBox(width: 8),
                               Text(
-                                '${widget.data.readersExperience} Years',
-                                style: const TextStyle(
+                                //'${widget.data.readersExperience} Years',
+                                '2 Years',
+                                style: TextStyle(
                                     fontSize: 16, color: Colors.grey),
                               ),
                             ],
                           ),
-                          Row(
+                          const Row(
                             children: [
-                              const Icon(Icons.attach_money_outlined,
+                              Icon(Icons.attach_money_outlined,
                                   color: Colors.grey),
-                              const SizedBox(width: 8),
+                              SizedBox(width: 8),
                               Text(
-                                '${widget.data.readersFees} /min',
-                                style: const TextStyle(
+                                '200\$ /min',
+                                
+                                //'${widget.data.readersFees} /min',
+                                style: TextStyle(
                                     fontSize: 16, color: Colors.black),
                               ),
-                              const Text(
+                              Text(
                                 '\t\t\t Online',
                                 style: TextStyle(
                                     fontSize: 16, color: Colors.green),
@@ -149,8 +149,7 @@ class _TarrotCardReadersCard extends State<TarrotCardReadersCard> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => CometChatMessages(
-                                      user:
-                                          User(uid: "12345", name: "Moiz Hussain"),
+                                      user: widget.data,
                                     )),
                           );
                           // navigateToMessagesScreen();

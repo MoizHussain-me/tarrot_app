@@ -1,6 +1,4 @@
 import 'dart:io';
-
-import 'package:cometchat_chat_uikit/cometchat_chat_uikit.dart';
 import 'package:flutter/material.dart';
 import 'package:tarrot_app/utils/BasicComponents/form_input_field.dart';
 import 'package:tarrot_app/utils/BasicComponents/my_text.dart';
@@ -8,7 +6,6 @@ import 'package:image_picker/image_picker.dart';
 import '../../../Model/user_model.dart';
 import '../../../ViewModel/shared_preferences_viewmodel.dart';
 import '../../../utils/BasicComponents/my_button.dart';
-import '../../../utils/BasicComponents/my_radio_button.dart';
 import '../../../utils/app_strings.dart';
 
 class RegisterUser extends StatefulWidget {
@@ -18,14 +15,26 @@ class RegisterUser extends StatefulWidget {
   State<RegisterUser> createState() => _RegisterUserState();
 }
 
+
 class _RegisterUserState extends State<RegisterUser> {
-  final fullnamecontroller = TextEditingController();
+Map<String, dynamic>? retrievedUser;
+final fullnamecontroller = TextEditingController();
+  
+@override
+  void initState()  {
+    SharedPreferencesHelper.getObject<Map<String, dynamic>>('user').then((value) {
+    retrievedUser= value;
+    fullnamecontroller.text = retrievedUser!["name"].toString();
+    });
+    super.initState();
+  }
+
   XFile? pickedFile;
   int selectedOption = 1;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
+    //double width = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Colors.redAccent,
       appBar: AppBar(
@@ -194,17 +203,9 @@ class _RegisterUserState extends State<RegisterUser> {
                                     callback: () async {
                                       if (_formKey.currentState!.validate()) {
                                         UserModel data = UserModel(
-                                            name: fullnamecontroller.text
-                                                .toString(),
-                                 u           role: selectedOption.toString());
-
-                                        User? retrievedUser =
-                                            await SharedPreferencesHelper
-                                                .getObject<User>('user');
-                                        
-                                        debugPrint(retrievedUser!.uid);
-                                        
-                                        // bool updateUser = await UserModel.updateUser('wiemgkrhkmqe4dhesztqapwcadn1',data);
+                                            name: fullnamecontroller.text.toString(),
+                                            role: selectedOption.toString());
+                                        await UserModel.updateUser(retrievedUser!["uid"],data);
                                       } else {
                                         debugPrint("Error");
                                       }

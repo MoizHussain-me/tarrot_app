@@ -1,9 +1,9 @@
 // ignore_for_file: non_constant_identifier_names, unnecessary_null_comparison, prefer_interpolation_to_compose_strings, unused_local_variable
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tarrot_app/Views/Authentication/login/Helpers/login_form.dart';
 import '../../../ViewModel/auth_viewmodel.dart';
 import '../../../utils/BasicComponents/my_asset_image.dart';
-import 'login_form.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);

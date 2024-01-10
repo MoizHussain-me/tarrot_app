@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 class MyTextField extends StatelessWidget {
-  String label, hint;
-  bool isReadOnly;
+  final String label, hint;
+  final bool isReadOnly;
   final TextEditingController controller;
   final String? Function(String?)? validator;
-  MyTextField({
+  const MyTextField({
     required this.label,
     required this.hint,
     required this.isReadOnly,
@@ -17,7 +17,7 @@ class MyTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
+    //double height = MediaQuery.of(context).size.height;
     return Column(
       children: [
         Row(
@@ -41,8 +41,8 @@ class MyTextField extends StatelessWidget {
               children: [
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: width * 0.05),
-                  child: Container(
-                    width: 310,
+                  child: SizedBox(
+                    width: 200,
                     child: TextFormField(
                     
                       validator: validator,
