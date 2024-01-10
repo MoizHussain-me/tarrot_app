@@ -342,7 +342,7 @@ packages:
     source: sdk
     version: "0.0.0"
   get:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: get
       sha256: e4e7335ede17452b391ed3b2ede016545706c01a02292a6c97619705e7d2a85e
@@ -374,13 +374,13 @@ packages:
     source: hosted
     version: "4.0.2"
   image_picker:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: image_picker
-      sha256: "340efe08645537d6b088a30620ee5752298b1630f23a829181172610b868262b"
+      sha256: "26222b01a0c9a2c8fe02fc90b8208bd3325da5ed1f4a2acabf75939031ac0bdd"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.6"
+    version: "1.0.7"
   image_picker_android:
     dependency: transitive
     description:

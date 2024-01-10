@@ -1,13 +1,10 @@
-// ignore_for_file: file_names, prefer_const_constructors_in_immutables
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../../../../Model/random_card.dart';
 
 class DailyTarot extends StatelessWidget {
   final RandomCard tc;
 
-  DailyTarot(this.tc, {Key? key}) : super(key: key);
+  const DailyTarot(this.tc, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

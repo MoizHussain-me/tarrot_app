@@ -1,5 +1,5 @@
 enum RoleEnum {
-Default,
-User,
-Reader
+defaultValue,
+user,
+reader,
 }

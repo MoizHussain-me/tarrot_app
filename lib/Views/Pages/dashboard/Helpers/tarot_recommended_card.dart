@@ -1,10 +1,8 @@
 import 'package:cometchat_chat_uikit/cometchat_chat_uikit.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../Model/readers_model.dart';
-
 class TarrotRecommendCard extends StatelessWidget {
-  final ReadersModel tr;
+  final User tr;
 
   const TarrotRecommendCard(this.tr, {Key? key}) : super(key: key);
 
@@ -25,7 +23,7 @@ class TarrotRecommendCard extends StatelessWidget {
                 width: 120,
                 // height: 100,
                 child: CircleAvatar(
-                  backgroundImage: NetworkImage(tr.readersImg.toString()),
+                  backgroundImage: NetworkImage(tr.avatar.toString()),
                   radius: 40,
                   backgroundColor: Colors.white,
                 ),
@@ -47,17 +45,18 @@ class TarrotRecommendCard extends StatelessWidget {
                     ),
                   ],
                 ),
-                child: Row(
+                child: const Row(
                   children: [
-                    const Icon(
+                    Icon(
                       Icons.star,
                       color: Colors.yellow,
                       size: 19,
                     ),
-                    const SizedBox(width: 4),
+                    SizedBox(width: 4),
                     Text(
-                      tr.readersRating.toString(),
-                      style: const TextStyle(
+                      //tr.readersRating.toString(),
+                      "4.0",
+                      style: TextStyle(
                           fontSize: 12,
                           color: Colors.black,
                           fontWeight: FontWeight.bold),
@@ -74,16 +73,17 @@ class TarrotRecommendCard extends StatelessWidget {
               text: TextSpan(
                 children: [
                   TextSpan(
-                    text: tr.readersName.toString(),
+                    text: tr.name.toString(),
                     style: const TextStyle(
                       fontSize: 16,
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  TextSpan(
-                    text: '${'\n\$ ${tr.readersFees}'} /min',
-                    style: const TextStyle(fontSize: 16, color: Colors.grey),
+                  const TextSpan(
+                    //text: '${'\n\$ ${tr.readersFees}'} /min',
+                    text: '\$200 /min',
+                    style: TextStyle(fontSize: 16, color: Colors.grey),
                   ),
                 ],
               ),
@@ -95,7 +95,7 @@ class TarrotRecommendCard extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                     builder: (context) => CometChatMessages(
-                          user: User(uid: "12345", name: "Moiz Hussain"),
+                          user: tr,
                         )),
               );
             },

@@ -1,19 +1,25 @@
-// ignore_for_file: camel_case_types
-
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tarrot_app/Routes/routes_name.dart';
+import 'package:tarrot_app/ViewModel/shared_preferences_viewmodel.dart';
+import 'package:tarrot_app/Views/Pages/Registration/registeration_page.dart';
 
-import '../../../Routes/routes_name.dart';
-import '../registration/register_user.dart';
-
-class settingPage extends StatefulWidget {
-  const settingPage({super.key});
+class SettingPage extends StatefulWidget {
+  const SettingPage({super.key});
 
   @override
-  State<settingPage> createState() => _settingPageState();
+  State<SettingPage> createState() => _SettingPageState();
 }
 
-class _settingPageState extends State<settingPage> {
+class _SettingPageState extends State<SettingPage> {
+  Map<String,dynamic>? retrievedUser;
+  @override
+  void initState() {
+    SharedPreferencesHelper.getObject<Map<String, dynamic>>('user').then((value) {
+    retrievedUser = value;
+    });
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -48,13 +54,13 @@ class _settingPageState extends State<settingPage> {
                   ))
                 ],
               ),
-              const profile(),
+              retrievedUser != null ?Profile(retrievedUser!): Container(),
               Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Container(
-                      height: 320,
+                      height: 200,
                       width: double.infinity,
                       decoration: const BoxDecoration(
                         borderRadius: BorderRadius.only(
@@ -253,9 +259,7 @@ class _settingPageState extends State<settingPage> {
                                       Expanded(
                                         child: InkWell(
                                           onTap: () async {
-                                            SharedPreferences prefs =
-                                                await SharedPreferences
-                                                    .getInstance();
+                                            SharedPreferences prefs = await SharedPreferences.getInstance();
                                             await prefs.clear();
                                             Navigator.pushReplacementNamed(
                                                 context, RouteName.login);
@@ -334,14 +338,10 @@ class _settingPageState extends State<settingPage> {
   }
 }
 
-class profile extends StatefulWidget {
-  const profile({Key? key}) : super(key: key);
+class Profile extends StatelessWidget {
+  final Map<String,dynamic> retrievedUser;
+  const Profile(this.retrievedUser);
 
-  @override
-  State<profile> createState() => _profileState();
-}
-
-class _profileState extends State<profile> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -373,10 +373,10 @@ class _profileState extends State<profile> {
                           radius: 50,
                         ),
                       ),
-                      const Center(
+                      Center(
                         child: Text(
-                          "Farhan Atif",
-                          style: TextStyle(
+                          retrievedUser["name"].toString(),
+                          style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 20,
                             color: Colors.black,
@@ -386,13 +386,13 @@ class _profileState extends State<profile> {
                       const SizedBox(
                         height: 10,
                       ),
-                      const Row(
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(Icons.mobile_screen_share_outlined),
-                          Text(
-                            ' +92 334 000000 ',
-                            style: TextStyle(
+                        const Icon(Icons.mobile_screen_share_outlined),
+                        Text(
+                            retrievedUser["metadata"]["PhoneNumber"].toString(),
+                            style: const TextStyle(
                               fontSize: 15,
                               color: Colors.black,
                             ),
@@ -400,7 +400,7 @@ class _profileState extends State<profile> {
                         ],
                       ),
                       const SizedBox(
-                        height: 25,
+                        height: 10,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,

@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tarrot_app/utils/my_utils.dart';
 import '../../../ViewModel/auth_viewmodel.dart';
 import '../../../utils/BasicComponents/my_asset_image.dart';
 import '../../../utils/BasicComponents/my_button.dart';
 import '../../../utils/BasicComponents/my_text.dart';
 import '../../../utils/BasicComponents/sign_in_field.dart';
 import '../../../utils/app_strings.dart';
-import '../../../utils/myUtils.dart';
-
 class OtpPage extends StatefulWidget {
   final String verificationId;
   final String phoneNum;
@@ -88,8 +87,8 @@ class _OtpPageState extends State<OtpPage> {
                       MyButton(
                         data: AppStrings.verifyOtp,
                         callback: () async {
-                          String Otp = textControllers.map((controller) => controller.text).join();
-                          authViewModel.verifyOtp(widget.verificationId, Otp, widget.phoneNum, context);
+                          String otp = textControllers.map((controller) => controller.text).join();
+                          authViewModel.verifyOtp(widget.verificationId, otp, widget.phoneNum, context);
                         },
                       ),
                       Utils.addHorizontalSpace(20),

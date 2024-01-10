@@ -1,15 +1,14 @@
 import 'dart:async';
-
+import 'package:cometchat_sdk/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tarrot_app/ViewModel/cometchat_viewmodel.dart';
 import 'package:tarrot_app/ViewModel/dashboard_viewmodel.dart';
+import 'package:tarrot_app/ViewModel/shared_preferences_viewmodel.dart';
+import 'package:tarrot_app/Views/Pages/Dashboard/Helpers/consultant_card.dart';
+import 'package:tarrot_app/Views/Pages/Dashboard/Helpers/daily_tarot_cart.dart';
+import 'package:tarrot_app/Views/Pages/Dashboard/Helpers/tarot_recommended_card.dart';
 import '../../../Model/random_card.dart';
-import '../../../Model/readers_model.dart';
-import '../tarrot_readers_list/TarrotCardList.dart';
-import 'utils/consultant_card.dart';
-import 'utils/daily_tarot_cart.dart';
-import 'utils/tarot_recommended_card.dart';
+import '../tarrot_readers_list/tarrot_card_list.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
@@ -23,16 +22,20 @@ class _DashboardPageState extends State<DashboardPage> {
   late Future<List<RandomCard>> dailyTarot;
   late Future<List<RandomCard>> experiencedTarot;
   bool isDialogEnabled = true;
-
+  Map<String, dynamic>? retrievedUser;
+@override
+  void initState()  {
+    SharedPreferencesHelper.getObject<Map<String, dynamic>>('user').then((value) {
+    retrievedUser= value;
+    });
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     final dashboardViewModel = Provider.of<DashboardViewModel>(context);
-    final cometChatViewModel = Provider.of<CometChatViewModel>(context);
     dailyTarot = dashboardViewModel.fetchCards(numberOfCards: 5);
     experiencedTarot = dashboardViewModel.fetchCards(numberOfCards: 5);
     todayCard = dashboardViewModel.fetchSingleCard();
-    // cometChatViewModel.initializer();
-    // cometChatViewModel.loginUser('123');
     Size size = MediaQuery.of(context).size;
     return WillPopScope(
       onWillPop: () async {
@@ -62,13 +65,18 @@ class _DashboardPageState extends State<DashboardPage> {
                           alignment: Alignment.center,
                           child: Column(
                             children: [
-                              const Row(
+                               Row(
                                 children: [
-                                  SizedBox(
+                                const SizedBox(
                                     width: 65,
                                   ),
+                                  retrievedUser != null?
                                   Text(
-                                    'Hello user,',
+                                    'Hello ${retrievedUser!["name"].toString()}',
+                                    style: const TextStyle(color: Colors.white),
+                                  ):
+                                  const Text(
+                                    'Hello user',
                                     style: TextStyle(color: Colors.white),
                                   ),
                                 ],
@@ -314,9 +322,9 @@ class _DashboardPageState extends State<DashboardPage> {
                                           height: 200,
                                           width: size.width,
                                           child:
-                                              FutureBuilder<List<ReadersModel>>(
+                                              FutureBuilder<List<User>>(
                                             future: dashboardViewModel
-                                                .getAllReaders(),
+                                                .getAllReaders(5),
                                             builder: (context, snapshot) {
                                               if (snapshot.connectionState ==
                                                   ConnectionState.waiting) {
@@ -340,10 +348,9 @@ class _DashboardPageState extends State<DashboardPage> {
                                                       snapshot.data!.length,
                                                   itemBuilder:
                                                       (context, index) {
-                                                    ReadersModel reader =
+                                                    User reader =
                                                         snapshot.data![index];
-                                                    return TarrotRecommendCard(
-                                                        reader);
+                                                    return TarrotRecommendCard(reader);
                                                   },
                                                 );
                                               }

@@ -1,16 +1,11 @@
-// ignore_for_file: file_names
-
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cometchat_chat_uikit/cometchat_chat_uikit.dart';
 import 'package:flutter/material.dart';
-import 'package:tarrot_app/Model/readers_model.dart';
+import 'package:provider/provider.dart';
 import 'package:tarrot_app/ViewModel/dashboard_viewmodel.dart';
-import 'package:tarrot_app/Views/Pages/dashboard/dashboard_page.dart';
-import 'package:tarrot_app/Views/Pages/setting/setting.dart';
 import 'package:tarrot_app/utils/Layout/app_layout.dart';
 import 'package:tarrot_app/utils/Layout/bottom_bar.dart';
-
 import '../../../utils/Layout/card_list_header.dart';
-import 'util/tarrot_card_readers_card.dart';
+import 'Helpers/tarrot_card_readers_card.dart';
 
 class TarrotCardList extends StatefulWidget {
   const TarrotCardList({super.key});
@@ -20,20 +15,9 @@ class TarrotCardList extends StatefulWidget {
 }
 
 class _TarrotCardListState extends State<TarrotCardList> {
-  DashboardViewModel dashViewModel = DashboardViewModel();
-  Future<void> fetchAllLists() async {
-    List<ReadersModel> readers = await dashViewModel.getAllReaders();
-    setState(() {});
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    fetchAllLists();
-  }
-
   @override
   Widget build(BuildContext context) {
+    final dashboardViewModel = Provider.of<DashboardViewModel>(context);
     return WillPopScope(
       onWillPop: () async {
         return true;
@@ -82,8 +66,8 @@ class _TarrotCardListState extends State<TarrotCardList> {
                 //   ),
                 // ),
 
-                FutureBuilder<List<ReadersModel>>(
-                  future: dashViewModel.getAllReaders(),
+                FutureBuilder<List<User>>(
+                  future: dashboardViewModel.getAllReaders(5),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const Center(child: CircularProgressIndicator());
@@ -97,7 +81,8 @@ class _TarrotCardListState extends State<TarrotCardList> {
                         physics: const NeverScrollableScrollPhysics(),
                         itemCount: snapshot.data!.length,
                         itemBuilder: (context, index) {
-                          ReadersModel reader = snapshot.data![index];
+                          User reader = snapshot.data![index];
+                          debugPrint(reader.name);
                           return TarrotCardReadersCard(reader);
                         },
                       );
@@ -114,17 +99,16 @@ class _TarrotCardListState extends State<TarrotCardList> {
               onItemTapped: (index) {
                 if (index == 1) {
                   Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (_) => MyAppLayout()));
+                      MaterialPageRoute(builder: (_) => const MyAppLayout()));
                 }
                  else if (index == 2) {
                   Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (_) => MyAppLayout()));
+                      MaterialPageRoute(builder: (_) => const MyAppLayout()));
                 } else if (index == 0) {
                   Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (_) => MyAppLayout()));
+                      MaterialPageRoute(builder: (_) => const MyAppLayout()));
                 }
               }
-              // Add mor
               )),
     );
   }
