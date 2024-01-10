@@ -39,9 +39,9 @@ dependencies:
   firebase_auth: ^4.10.0
   provider: any
   shared_preferences: ^2.2.2
-  cometchat_chat_uikit: any
-  cometchat_calls_uikit: any
-  cometchat_sdk: any
+  cometchat_chat_uikit: ^4.1.0
+  cometchat_calls_uikit: ^4.1.0
+  cometchat_sdk: ^4.0.4
   http: any
   get: any
   country_code_picker: any
