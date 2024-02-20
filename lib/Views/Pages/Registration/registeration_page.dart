@@ -7,6 +7,7 @@ import '../../../Model/user_model.dart';
 import '../../../ViewModel/shared_preferences_viewmodel.dart';
 import '../../../utils/BasicComponents/my_button.dart';
 import '../../../utils/app_strings.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class RegisterUser extends StatefulWidget {
   const RegisterUser({super.key});
@@ -15,22 +16,46 @@ class RegisterUser extends StatefulWidget {
   State<RegisterUser> createState() => _RegisterUserState();
 }
 
-
 class _RegisterUserState extends State<RegisterUser> {
-Map<String, dynamic>? retrievedUser;
-final fullnamecontroller = TextEditingController();
-  
-@override
-  void initState()  {
-    SharedPreferencesHelper.getObject<Map<String, dynamic>>('user').then((value) {
-    retrievedUser= value;
-    fullnamecontroller.text = retrievedUser!["name"].toString();
+  Map<String, dynamic>? retrievedUser;
+  final fullnamecontroller = TextEditingController();
+  final languageController = TextEditingController();
+  final educationController = TextEditingController();
+  final experienceController = TextEditingController();
+  final chargesController = TextEditingController();
+
+  XFile? pickedFile;
+  int selectedOption = 1;
+
+  String gender = "Male", phone = "", imageUrl = "";
+
+  @override
+  void initState() {
+    SharedPreferencesHelper.getObject<Map<String, dynamic>>('user')
+        .then((value) {
+      setState(() {
+        retrievedUser = value;
+        fullnamecontroller.text = retrievedUser!["name"].toString();
+        selectedOption = retrievedUser!["role"].toString() != "default"
+            ? int.parse(retrievedUser!["role"].toString())
+            : 0;
+        phone = retrievedUser!["metadata"]["PhoneNumber"].toString();
+        if (selectedOption == 2) {
+          chargesController.text =
+              retrievedUser!["metadata"]["Charges"].toString();
+          languageController.text =
+              retrievedUser!["metadata"]["Language"].toString();
+          educationController.text =
+              retrievedUser!["metadata"]["Education"].toString();
+          experienceController.text =
+              retrievedUser!["metadata"]["Experience"].toString();
+        }
+      });
+      print(phone);
     });
     super.initState();
   }
 
-  XFile? pickedFile;
-  int selectedOption = 1;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -163,6 +188,8 @@ final fullnamecontroller = TextEditingController();
                                               onChanged: (value) {
                                                 setState(() {
                                                   selectedOption = value!;
+                                                  debugPrint(selectedOption
+                                                      .toString());
                                                 });
                                               },
                                             ),
@@ -173,6 +200,8 @@ final fullnamecontroller = TextEditingController();
                                               onChanged: (value) {
                                                 setState(() {
                                                   selectedOption = value!;
+                                                  debugPrint(selectedOption
+                                                      .toString());
                                                 });
                                               },
                                             ),
@@ -197,15 +226,147 @@ final fullnamecontroller = TextEditingController();
                                 const SizedBox(
                                   height: 20,
                                 ),
+                                const Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text('Select Your Gender*:',
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold)),
+                                    ]),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Radio(
+                                      value: 1,
+                                      groupValue: 1,
+                                      onChanged: (value) {
+                                        gender = "Male";
+                                      },
+                                    ),
+                                    const Text('Male'),
+                                    Radio(
+                                      value: 2,
+                                      groupValue: 1,
+                                      onChanged: (value) {
+                                        gender = "Female";
+                                      },
+                                    ),
+                                    const Text('Female'),
+                                  ],
+                                ),
+                                if (selectedOption == 2)
+                                  MyTextField(
+                                    label: 'Language',
+                                    hint: '',
+                                    isReadOnly: false,
+                                    controller: languageController,
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return 'Please enter Language';
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                if (selectedOption == 2)
+                                  MyTextField(
+                                    label: 'Education',
+                                    hint: '',
+                                    isReadOnly: false,
+                                    controller: educationController,
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return 'Please enter Education';
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                if (selectedOption == 2)
+                                  MyTextField(
+                                    label: 'Experience',
+                                    hint: '',
+                                    isReadOnly: false,
+                                    controller: experienceController,
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return 'Please enter Experience';
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                if (selectedOption == 2)
+                                  MyTextField(
+                                    label: 'Charges',
+                                    hint: '',
+                                    isReadOnly: false,
+                                    controller: chargesController,
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return 'Please enter Charges';
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
                                 Center(
                                   child: MyButton(
                                     data: 'Save',
                                     callback: () async {
-                                      if (_formKey.currentState!.validate()) {
-                                        UserModel data = UserModel(
-                                            name: fullnamecontroller.text.toString(),
-                                            role: selectedOption.toString());
-                                        await UserModel.updateUser(retrievedUser!["uid"],data);
+                                      String? img = pickedFile?.path ?? '';
+                                      if (_formKey.currentState!.validate() &&
+                                          img != '') {
+
+                                        imageUrl = await uploadImage(
+                                            File(pickedFile!.path), phone);
+                                        print('Image URL: $imageUrl');
+
+                                        if (selectedOption == 2) {
+                                          Map<String, dynamic> d = {
+                                            "PhoneNumber": phone.toString(),
+                                            "Gender": gender.toString(),
+                                            "Language": languageController.text,
+                                            "Education":
+                                                educationController.text,
+                                            "Experience":
+                                                experienceController.text,
+                                            "Charges": chargesController.text,
+                                          };
+
+                                          UserModel data = UserModel(
+                                              name: fullnamecontroller.text
+                                                  .toString(),
+                                              role: selectedOption.toString(),
+                                              metadata: d);
+                                          await UserModel.updateUser(
+                                              retrievedUser!["uid"],
+                                              data,
+                                              context);
+                                        } else {
+                                          Map<String, dynamic> d = {
+                                            "Gender": gender.toString(),
+                                            "PhoneNumber": phone.toString(),
+                                          };
+                                          UserModel data = UserModel(
+                                              name: fullnamecontroller.text
+                                                  .toString(),
+                                              role: selectedOption.toString(),
+                                              metadata: d);
+                                          await UserModel.updateUser(
+                                              retrievedUser!["uid"],
+                                              data,
+                                              context);
+                                        }
                                       } else {
                                         debugPrint("Error");
                                       }
@@ -229,5 +390,21 @@ final fullnamecontroller = TextEditingController();
         ],
       ),
     );
+  }
+
+  Future<String> uploadImage(File imageFile, String imageName) async {
+    try {
+      Reference storageReference =
+          FirebaseStorage.instance.ref().child(imageName);
+      UploadTask uploadTask = storageReference.putFile(imageFile);
+
+      await uploadTask.whenComplete(() => null);
+
+      String downloadUrl = await storageReference.getDownloadURL();
+      return downloadUrl;
+    } catch (e) {
+      print('Error uploading image: $e');
+      return "";
+    }
   }
 }

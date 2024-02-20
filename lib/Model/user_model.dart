@@ -39,7 +39,7 @@ class UserModel extends User {
     );
   }
 
-static Future<bool>  updateUser(String uid, UserModel obj) async {
+static Future<bool>  updateUser(String uid, UserModel obj,BuildContext context) async {
     await CometChat.getUser(uid, onSuccess: (User user) async {
       user.name= obj.name;
       user.avatar = obj.avatar;
@@ -47,8 +47,10 @@ static Future<bool>  updateUser(String uid, UserModel obj) async {
       user.role = obj.role;
       
       await CometChatUIKit.updateUser(user, onSuccess: (User retUser) async{
+        
             await SharedPreferencesHelper.setObject('user', retUser.toJson());
         debugPrint('User updated successfully: $retUser');
+        Navigator.pop(context);
         return true;
       }, onError: (CometChatException excep) {  });
     }, onError: (CometChatException excep) {

@@ -82,7 +82,7 @@ class TarrotRecommendCard extends StatelessWidget {
                   ),
                   const TextSpan(
                     //text: '${'\n\$ ${tr.readersFees}'} /min',
-                    text: '\$200 /min',
+                    text: '\n\$200 /min',
                     style: TextStyle(fontSize: 16, color: Colors.grey),
                   ),
                 ],

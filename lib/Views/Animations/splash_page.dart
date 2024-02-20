@@ -57,7 +57,7 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
         width: double.infinity,
         decoration:const BoxDecoration(
         gradient: LinearGradient(
-          colors: [Colors.blue,Colors.purple],
+          colors: [Colors.orange,Colors.red],
           begin: Alignment.topRight,
           end:  Alignment.bottomLeft)),
           child: const Column(

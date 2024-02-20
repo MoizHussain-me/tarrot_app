@@ -12,14 +12,19 @@ class SettingPage extends StatefulWidget {
 }
 
 class _SettingPageState extends State<SettingPage> {
-  Map<String,dynamic>? retrievedUser;
+  Map<String, dynamic>? retrievedUser;
   @override
   void initState() {
-    SharedPreferencesHelper.getObject<Map<String, dynamic>>('user').then((value) {
-    retrievedUser = value;
+    SharedPreferencesHelper.getObject<Map<String, dynamic>>('user')
+        .then((value) {
+      setState(() {
+        retrievedUser = value;
+      });
+      debugPrint(value.toString());
     });
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -54,13 +59,13 @@ class _SettingPageState extends State<SettingPage> {
                   ))
                 ],
               ),
-              retrievedUser != null ?Profile(retrievedUser!): Container(),
+              retrievedUser != null ? Profile(retrievedUser!) : Container(),
               Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Container(
-                      height: 200,
+                      height: 300,
                       width: double.infinity,
                       decoration: const BoxDecoration(
                         borderRadius: BorderRadius.only(
@@ -76,61 +81,18 @@ class _SettingPageState extends State<SettingPage> {
                           child: Column(
                             children: [
                               const SizedBox(
-                                height: 10,
-                              ),
-                              SizedBox(
                                 height: 50,
                                 width: 300,
                                 child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
                                   children: [
-                                    GestureDetector(
-                                      onTap: () {
-                                        // Navigator.pushNamed(
-                                        //     context, RouteName.profile);
-                                      },
-                                      child: const Expanded(
-                                          child: Text(
-                                        'FAQs',
-                                        style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold),
-                                      )),
-                                    ),
-                                    const Icon(Icons.arrow_drop_down_sharp)
-                                  ],
-                                ),
-                              ),
-                              const Divider(
-                                height: 1,
-                                color: Colors.black,
-                              ),
-                              SizedBox(
-                                height: 50,
-                                width: 300,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    GestureDetector(
-                                      onTap: () {
-                                        // Navigator.push(
-                                        //     context,
-                                        //     MaterialPageRoute(
-                                        //         builder: (builder) =>
-                                        //             const Feedback_SupportScreen()));
-                                      },
-                                      child: const Expanded(
+                                    Expanded(
                                         child: Text(
-                                          'Feedback and Support',
-                                          style: TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ),
-                                    ),
-                                    const Icon(Icons.arrow_drop_down_sharp)
+                                      'FAQs',
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold),
+                                    )),
+                                    Icon(Icons.arrow_drop_down_sharp)
                                   ],
                                 ),
                               ),
@@ -146,6 +108,26 @@ class _SettingPageState extends State<SettingPage> {
                                     Expanded(
                                         child: Text(
                                       'Terms And Condition',
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold),
+                                    )),
+                                    Icon(Icons.arrow_drop_down_sharp)
+                                  ],
+                                ),
+                              ),
+                              const Divider(
+                                height: 1,
+                                color: Colors.black,
+                              ),
+                              const SizedBox(
+                                height: 50,
+                                width: 300,
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                        child: Text(
+                                      'Feedback and Support',
                                       style: TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.bold),
@@ -259,7 +241,9 @@ class _SettingPageState extends State<SettingPage> {
                                       Expanded(
                                         child: InkWell(
                                           onTap: () async {
-                                            SharedPreferences prefs = await SharedPreferences.getInstance();
+                                            SharedPreferences prefs =
+                                                await SharedPreferences
+                                                    .getInstance();
                                             await prefs.clear();
                                             Navigator.pushReplacementNamed(
                                                 context, RouteName.login);
@@ -339,7 +323,7 @@ class _SettingPageState extends State<SettingPage> {
 }
 
 class Profile extends StatelessWidget {
-  final Map<String,dynamic> retrievedUser;
+  final Map<String, dynamic> retrievedUser;
   const Profile(this.retrievedUser);
 
   @override
@@ -389,8 +373,8 @@ class Profile extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                        const Icon(Icons.mobile_screen_share_outlined),
-                        Text(
+                          const Icon(Icons.mobile_screen_share_outlined),
+                          Text(
                             retrievedUser["metadata"]["PhoneNumber"].toString(),
                             style: const TextStyle(
                               fontSize: 15,
@@ -407,9 +391,8 @@ class Profile extends StatelessWidget {
                         children: [
                           InkWell(
                             onTap: () {
-                              Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                      builder: (_) => const RegisterUser()));
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (_) => const RegisterUser()));
                             },
                             child: const Center(
                               child: Text(

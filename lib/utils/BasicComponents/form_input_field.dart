@@ -42,9 +42,8 @@ class MyTextField extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: width * 0.05),
                   child: SizedBox(
-                    width: 200,
+                    width: 300,
                     child: TextFormField(
-                    
                       validator: validator,
                       controller: controller,
                       readOnly: isReadOnly,

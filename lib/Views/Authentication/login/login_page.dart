@@ -8,6 +8,7 @@ import '../../../utils/BasicComponents/my_asset_image.dart';
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
 
+
   @override
   Widget build(BuildContext context) {
     final authViewModel = Provider.of<AuthViewModel>(context);
