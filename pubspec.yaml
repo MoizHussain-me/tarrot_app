@@ -51,6 +51,8 @@ dependencies:
   cloud_firestore: any
   curved_navigation_bar: any
   image_picker: ^1.0.7
+  firebase_database: any
+
 
 
 

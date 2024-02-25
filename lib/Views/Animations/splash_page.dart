@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:tarrot_app/ViewModel/shared_preferences_viewmodel.dart';
 import 'package:tarrot_app/Views/Authentication/Login/login_page.dart';
+import 'package:tarrot_app/Views/Pages/Screen_Reading/screen.dart';
 import 'package:tarrot_app/utils/Layout/app_layout.dart';
 import '../../ViewModel/cometchat_viewmodel.dart';
 
@@ -22,23 +23,26 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
     Future.delayed(const Duration(seconds: 2),() async{
     Map<String, dynamic>? customUserMap = await SharedPreferencesHelper.getObject<Map<String, dynamic>>('user');  
-    if(customUserMap == null)
-    {
-      if (!context.mounted) return;
-      Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (_)=> const LoginPage()));
-    }
-    else{
-      CometChatUIKit.login(customUserMap["uid"], onSuccess: (user)async {
-      debugPrint("User Logged In");
-      await SharedPreferencesHelper.setObject('user', user.toJson());
-      if (!context.mounted) return;
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (_) => const MyAppLayout()));
-      });
-    }
+    // if(customUserMap == null)
+    // {
+    //   if (!context.mounted) return;
+    //   Navigator.of(context).pushReplacement(
+    //   MaterialPageRoute(builder: (_)=> const LoginPage()));
+    // }
+    // else{
+    //   CometChatUIKit.login(customUserMap["uid"], onSuccess: (user)async {
+    //   debugPrint("User Logged In");
+    //   await SharedPreferencesHelper.setObject('user', user.toJson());
+    //   if (!context.mounted) return;
+    //   Navigator.of(context).pushReplacement(
+    //       MaterialPageRoute(builder: (_) => const MyAppLayout()));
+    //   });
+    // }
+      Navigator.push(context, MaterialPageRoute(builder: (_)=>ScreenSharing()));
     }
     );
+  
+
   }
 
   @override
