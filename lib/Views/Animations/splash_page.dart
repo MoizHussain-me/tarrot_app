@@ -38,7 +38,7 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
     //       MaterialPageRoute(builder: (_) => const MyAppLayout()));
     //   });
     // }
-      Navigator.push(context, MaterialPageRoute(builder: (_)=>ScreenSharing()));
+      Navigator.push(context, MaterialPageRoute(builder: (_)=>TarotCardPage()));
     }
     );
   
