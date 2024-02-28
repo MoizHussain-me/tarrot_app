@@ -4,7 +4,6 @@ import 'package:tarrot_app/Routes/routes.dart';
 import 'package:tarrot_app/Routes/routes_name.dart';
 import 'package:tarrot_app/ViewModel/auth_viewmodel.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'ViewModel/cometchat_viewmodel.dart';
 import 'ViewModel/dashboard_viewmodel.dart';
 import 'firebase_options.dart';
 
@@ -24,7 +23,6 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (_) => AuthViewModel()),
-          ChangeNotifierProvider(create: (_) => CometChatViewModel()),
           ChangeNotifierProvider(create: (_) => DashboardViewModel()),
         ],
         child: MaterialApp(
