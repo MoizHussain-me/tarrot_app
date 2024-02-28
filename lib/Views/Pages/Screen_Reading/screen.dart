@@ -1,7 +1,7 @@
-import 'dart:math';
+import '../../../Model/random_card.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_database/firebase_database.dart';
+import 'package:provider/provider.dart';
+import 'package:tarrot_app/ViewModel/dashboard_viewmodel.dart';
 
 class TarotCardPage extends StatefulWidget {
   @override
@@ -9,61 +9,64 @@ class TarotCardPage extends StatefulWidget {
 }
 
 class _TarotCardPageState extends State<TarotCardPage> {
-  final DatabaseReference _dbRef = FirebaseDatabase.instance.reference();
-  List<String> _tarotCards = [
-    'The Fool',
-    'The Magician',
-    'The High Priestess',
-    // Add the rest of your cards here
-  ];
-  String _displayedCard = "Shuffle to reveal your card";
+  List<Widget> images = [];
+  late Future<RandomCard> todayCard;
 
-@override
-void initState() {
-  super.initState();
-  _dbRef.child('current_tarot_card/card').onValue.listen((event) {
-    final Object? card = event.snapshot.value;
-    if (card is String) { // Check if the card is a string and handle it safely.
-      setState(() {
-        _displayedCard = card;
-      });
-    }
-  });
-}
-
-
-
+  @override
+  void initState() {
+    super.initState();
+    images.add(_imageContainer()); // Initial empty container for adding new images
+  }
 
   @override
   Widget build(BuildContext context) {
+    final dashboardViewModel = Provider.of<DashboardViewModel>(context);
+    todayCard = dashboardViewModel.fetchSingleCard();
+
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Tarot Card Reader'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(_displayedCard, style: TextStyle(fontSize: 24)),
-            ElevatedButton(
-              onPressed: () => _shuffleAndDisplayCard(),
-              child: Text('Shuffle Cards'),
-            ),
-          ],
+      appBar: AppBar(title: const Text('Image Adder')),
+      body: SingleChildScrollView( // Use SingleChildScrollView for vertical scrolling
+        child: Wrap( // Use Wrap to organize images in rows
+          alignment: WrapAlignment.spaceEvenly, // Distribute space evenly
+          children: images.map((image) => image).toList(),
         ),
       ),
     );
   }
 
-  void _shuffleAndDisplayCard() {
-    final random = Random();
-    int index = random.nextInt(_tarotCards.length); // to get a random index
-    String card = _tarotCards[index];
-    setState(() {
-      _displayedCard = card;
-    });
-
-    // Optionally, update the card in Firebase so both users see the update
-    _dbRef.child('current_tarot_card').set({'card': card});
+  Widget _imageContainer({String? imagePath}) {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        Container(
+          width: 100, // Adjust the width to fit three in a row
+          height: 200, // Adjusted height for uniformity
+          margin: const EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: Colors.grey[300],
+            image: imagePath != null
+                ? DecorationImage(
+                    image: AssetImage(imagePath),
+                    fit: BoxFit.cover)
+                : null,
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
+        if (imagePath == null)
+          IconButton(
+            icon: const Icon(Icons.add, size: 30, color: Colors.white), // Adjusted icon size for space
+            onPressed: () {
+              todayCard.then((card) {
+                debugPrint(card.name);
+                setState(() {
+                  images[images.length - 1] = _imageContainer(
+                      imagePath: 'asset/images/${card.nameShort}.jpg'); // Ensure path is correct
+                  images.add(_imageContainer()); // Add a new container for the next image
+                });
+              });
+            },
+          ),
+      ],
+    );
   }
 }
