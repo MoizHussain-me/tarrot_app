@@ -1,4 +1,3 @@
-import 'package:cometchat_chat_uikit/cometchat_chat_uikit.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tarrot_app/ViewModel/dashboard_viewmodel.dart';
@@ -27,7 +26,7 @@ class _TarrotCardListState extends State<TarrotCardList> {
             preferredSize: const Size.fromHeight(80),
             child: CardListHeader(title: 'Tarocard list'),
           ),
-          body: SingleChildScrollView(
+          body: const SingleChildScrollView(
             child: Column(
               children: [
                 // SizedBox(
@@ -66,29 +65,29 @@ class _TarrotCardListState extends State<TarrotCardList> {
                 //   ),
                 // ),
 
-                FutureBuilder<List<User>>(
-                  future: dashboardViewModel.getAllReaders(5),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Center(child: CircularProgressIndicator());
-                    } else if (snapshot.hasError) {
-                      return const Center(child: Text('Error fetching data'));
-                    } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                      return const Center(child: Text('No Readers found'));
-                    } else {
-                      return ListView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: snapshot.data!.length,
-                        itemBuilder: (context, index) {
-                          User reader = snapshot.data![index];
-                          debugPrint(reader.name);
-                          return TarrotCardReadersCard(reader);
-                        },
-                      );
-                    }
-                  },
-                ),
+                // FutureBuilder<List<User>>(
+                //   future: dashboardViewModel.getAllReaders(5),
+                //   builder: (context, snapshot) {
+                //     if (snapshot.connectionState == ConnectionState.waiting) {
+                //       return const Center(child: CircularProgressIndicator());
+                //     } else if (snapshot.hasError) {
+                //       return const Center(child: Text('Error fetching data'));
+                //     } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                //       return const Center(child: Text('No Readers found'));
+                //     } else {
+                //       return ListView.builder(
+                //         shrinkWrap: true,
+                //         physics: const NeverScrollableScrollPhysics(),
+                //         itemCount: snapshot.data!.length,
+                //         itemBuilder: (context, index) {
+                //           // User reader = snapshot.data![index];
+                //           // debugPrint(reader.name);
+                //           // return TarrotCardReadersCard(reader);
+                //         },
+                //       );
+                //     }
+                //   },
+                // ),
 
                 // TarrotCardReadersCard(),
               ],

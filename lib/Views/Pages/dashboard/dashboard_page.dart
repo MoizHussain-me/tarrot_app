@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:cometchat_sdk/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tarrot_app/ViewModel/dashboard_viewmodel.dart';
@@ -293,36 +292,36 @@ class _DashboardPageState extends State<DashboardPage> {
                           const SizedBox(
                             height: 10,
                           ),
-                          SizedBox(
-                            height: 200,
-                            width: size.width,
-                            child: FutureBuilder<List<User>>(
-                              future: dashboardViewModel.getAllReaders(5),
-                              builder: (context, snapshot) {
-                                if (snapshot.connectionState ==
-                                    ConnectionState.waiting) {
-                                  return const Center(
-                                      child: CircularProgressIndicator());
-                                } else if (snapshot.hasError) {
-                                  return const Center(
-                                      child: Text('Error fetching data'));
-                                } else if (!snapshot.hasData ||
-                                    snapshot.data!.isEmpty) {
-                                  return const Center(
-                                      child: Text('No categories found'));
-                                } else {
-                                  return ListView.builder(
-                                    scrollDirection: Axis.horizontal,
-                                    itemCount: snapshot.data!.length,
-                                    itemBuilder: (context, index) {
-                                      User reader = snapshot.data![index];
-                                      return TarrotRecommendCard(reader);
-                                    },
-                                  );
-                                }
-                              },
-                            ),
-                          ),
+                          // SizedBox(
+                          //   height: 200,
+                          //   width: size.width,
+                          //   child: FutureBuilder<List<User>>(
+                          //     future: dashboardViewModel.getAllReaders(5),
+                          //     builder: (context, snapshot) {
+                          //       if (snapshot.connectionState ==
+                          //           ConnectionState.waiting) {
+                          //         return const Center(
+                          //             child: CircularProgressIndicator());
+                          //       } else if (snapshot.hasError) {
+                          //         return const Center(
+                          //             child: Text('Error fetching data'));
+                          //       } else if (!snapshot.hasData ||
+                          //           snapshot.data!.isEmpty) {
+                          //         return const Center(
+                          //             child: Text('No categories found'));
+                          //       } else {
+                          //         return ListView.builder(
+                          //           scrollDirection: Axis.horizontal,
+                          //           itemCount: snapshot.data!.length,
+                          //           itemBuilder: (context, index) {
+                          //             User reader = snapshot.data![index];
+                          //             return TarrotRecommendCard(reader);
+                          //           },
+                          //         );
+                          //       }
+                          //     },
+                          //   ),
+                          // ),
                   
                           // Recommended Tarots Cards end
                   

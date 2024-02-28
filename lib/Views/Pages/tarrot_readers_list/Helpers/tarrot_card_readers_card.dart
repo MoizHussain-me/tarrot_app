@@ -1,9 +1,7 @@
-import 'package:cometchat_chat_uikit/cometchat_chat_uikit.dart';
 import 'package:flutter/material.dart';
 class TarrotCardReadersCard extends StatefulWidget {
-  final User data;
 
- const TarrotCardReadersCard(this.data, {Key? key}) : super(key: key);
+ const TarrotCardReadersCard({Key? key}) : super(key: key);
 
   @override
   State<TarrotCardReadersCard> createState() => _TarrotCardReadersCard();
@@ -21,22 +19,22 @@ class _TarrotCardReadersCard extends State<TarrotCardReadersCard> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
+                const Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
-                      width: 100,
-                      height: 120,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        image: DecorationImage(
-                          image:
-                              NetworkImage(widget.data.avatar.toString()),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 16),
+                    // Container(
+                    //   width: 100,
+                    //   height: 120,
+                    //   decoration: BoxDecoration(
+                    //     borderRadius: BorderRadius.circular(8),
+                    //     image: DecorationImage(
+                    //       image:
+                    //           NetworkImage(widget.data.avatar.toString()),
+                    //       fit: BoxFit.cover,
+                    //     ),
+                    //   ),
+                    // ),
+                    SizedBox(width: 16),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -44,8 +42,8 @@ class _TarrotCardReadersCard extends State<TarrotCardReadersCard> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
-                                widget.data.name.toString(),
+                              Text("data",
+                                // widget.data.name.toString(),
                                 style: const TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
@@ -145,13 +143,13 @@ class _TarrotCardReadersCard extends State<TarrotCardReadersCard> {
                           ),
                         ),
                         onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => CometChatMessages(
-                                      user: widget.data,
-                                    )),
-                          );
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //       builder: (context) => CometChatMessages(
+                          //             user: widget.data,
+                          //           )),
+                          // );
                           // navigateToMessagesScreen();
                         },
                         child: const Row(

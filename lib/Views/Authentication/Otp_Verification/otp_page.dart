@@ -88,7 +88,7 @@ class _OtpPageState extends State<OtpPage> {
                         data: AppStrings.verifyOtp,
                         callback: () async {
                           String otp = textControllers.map((controller) => controller.text).join();
-                          authViewModel.verifyOtp(widget.verificationId, otp, widget.phoneNum, context);
+                          //authViewModel.verifyOtp(widget.verificationId, otp, widget.phoneNum, context);
                         },
                       ),
                       Utils.addHorizontalSpace(20),

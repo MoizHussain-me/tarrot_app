@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:tarrot_app/utils/BasicComponents/form_input_field.dart';
 import 'package:tarrot_app/utils/BasicComponents/my_text.dart';
 import 'package:image_picker/image_picker.dart';
-import '../../../Model/user_model.dart';
 import '../../../ViewModel/shared_preferences_viewmodel.dart';
 import '../../../utils/BasicComponents/my_button.dart';
 import '../../../utils/app_strings.dart';
@@ -319,60 +318,60 @@ class _RegisterUserState extends State<RegisterUser> {
                                 const SizedBox(
                                   height: 20,
                                 ),
-                                Center(
-                                  child: MyButton(
-                                    data: 'Save',
-                                    callback: () async {
-                                      String? img = pickedFile?.path ?? '';
-                                      if (_formKey.currentState!.validate() &&
-                                          img != '') {
+                                // Center(
+                                //   child: MyButton(
+                                //     data: 'Save',
+                                //     callback: () async {
+                                //       String? img = pickedFile?.path ?? '';
+                                //       if (_formKey.currentState!.validate() &&
+                                //           img != '') {
 
-                                        imageUrl = await uploadImage(
-                                            File(pickedFile!.path), phone);
-                                        print('Image URL: $imageUrl');
+                                //         imageUrl = await uploadImage(
+                                //             File(pickedFile!.path), phone);
+                                //         print('Image URL: $imageUrl');
 
-                                        if (selectedOption == 2) {
-                                          Map<String, dynamic> d = {
-                                            "PhoneNumber": phone.toString(),
-                                            "Gender": gender.toString(),
-                                            "Language": languageController.text,
-                                            "Education":
-                                                educationController.text,
-                                            "Experience":
-                                                experienceController.text,
-                                            "Charges": chargesController.text,
-                                          };
+                                //         if (selectedOption == 2) {
+                                //           Map<String, dynamic> d = {
+                                //             "PhoneNumber": phone.toString(),
+                                //             "Gender": gender.toString(),
+                                //             "Language": languageController.text,
+                                //             "Education":
+                                //                 educationController.text,
+                                //             "Experience":
+                                //                 experienceController.text,
+                                //             "Charges": chargesController.text,
+                                //           };
 
-                                          UserModel data = UserModel(
-                                              name: fullnamecontroller.text
-                                                  .toString(),
-                                              role: selectedOption.toString(),
-                                              metadata: d);
-                                          await UserModel.updateUser(
-                                              retrievedUser!["uid"],
-                                              data,
-                                              context);
-                                        } else {
-                                          Map<String, dynamic> d = {
-                                            "Gender": gender.toString(),
-                                            "PhoneNumber": phone.toString(),
-                                          };
-                                          UserModel data = UserModel(
-                                              name: fullnamecontroller.text
-                                                  .toString(),
-                                              role: selectedOption.toString(),
-                                              metadata: d);
-                                          await UserModel.updateUser(
-                                              retrievedUser!["uid"],
-                                              data,
-                                              context);
-                                        }
-                                      } else {
-                                        debugPrint("Error");
-                                      }
-                                    },
-                                  ),
-                                ),
+                                //       //     UserModel data = UserModel(
+                                //       //         name: fullnamecontroller.text
+                                //       //             .toString(),
+                                //       //         role: selectedOption.toString(),
+                                //       //         metadata: d);
+                                //       //     await UserModel.updateUser(
+                                //       //         retrievedUser!["uid"],
+                                //       //         data,
+                                //       //         context);
+                                //       //   } else {
+                                //       //     Map<String, dynamic> d = {
+                                //       //       "Gender": gender.toString(),
+                                //       //       "PhoneNumber": phone.toString(),
+                                //       //     };
+                                //       //     UserModel data = UserModel(
+                                //       //         name: fullnamecontroller.text
+                                //       //             .toString(),
+                                //       //         role: selectedOption.toString(),
+                                //       //         metadata: d);
+                                //       //     await UserModel.updateUser(
+                                //       //         retrievedUser!["uid"],
+                                //       //         data,
+                                //       //         context);
+                                //       //   }
+                                //       // } else {
+                                //       //   debugPrint("Error");
+                                //       // }
+                                //     },
+                                //   ),
+                                // ),
                                 const SizedBox(
                                   height: 10,
                                 ),
